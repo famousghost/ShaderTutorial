@@ -126,10 +126,10 @@ int main()
 
 	glBindVertexArray(0);
 
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	while (!glfwWindowShouldClose(window))
 	{
-		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 		glUseProgram(shaderProgram);
@@ -138,6 +138,7 @@ int main()
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
 
 	return 0;
