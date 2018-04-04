@@ -7,21 +7,16 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 const char *vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
-
-"layout (location = 1) in vec3 colPos;\n"
-"out vec3 vertexColor;\n"
 "void main()\n"
 "{\n"
-"   vertexColor = colPos;\n"
 "   gl_Position = vec4(aPos,1.0f);\n"
 "}\0";
 
 const char *fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
-"in vec3 vertexColor;\n"
 "void main()\n"
 "{\n"
-"   FragColor = vec4(vertexColor,1.0);\n"
+"   FragColor = vec4(1.0,1.0,0.0,1.0);\n"
 "}\0";
 
 const int WIDTH = 800;
@@ -108,12 +103,9 @@ int main()
 	}
 
 	GLfloat vertices[] = {
-		-0.5f, -0.5f, -0.5f,-0.5f,1.0f,0.5f,
-		0.5f, -0.5f, -0.5f,1.0f,0.0f,0.0f,
-		0.5f,  0.5f, -0.5f,0.0f,1.0f,0.0f,
-		0.5f,  0.5f, -0.5f,1.0f,1.0f,1.0f,
-		-0.5f,  0.5f, -0.5f,0.0f,1.0f,0.5f,
-		-0.5f, -0.5f, -0.5f,0.0f,0.5f,0.0f
+		-0.5f, -0.5f, 0.0f,
+		0.0f, 0.5f, 0.0f,
+		0.5f,  -0.5f, 0.0f
 	};
 
 
@@ -128,11 +120,9 @@ int main()
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 
@@ -144,7 +134,7 @@ int main()
 
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
